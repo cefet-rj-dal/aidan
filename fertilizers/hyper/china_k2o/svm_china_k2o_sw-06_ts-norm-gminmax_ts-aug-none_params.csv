@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"kernel";"epsilon";"cost";"key"
+5;"ts_norm_gminmax";"ts_aug_none";"linear";0;20;15

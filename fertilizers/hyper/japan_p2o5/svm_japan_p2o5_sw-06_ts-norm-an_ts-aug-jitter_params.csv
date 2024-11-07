@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"kernel";"epsilon";"cost";"key"
+5;"ts_norm_an";"ts_aug_jitter";"linear";0,2;40;120

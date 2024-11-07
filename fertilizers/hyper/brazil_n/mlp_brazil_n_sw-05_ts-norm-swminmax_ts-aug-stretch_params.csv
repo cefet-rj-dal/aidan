@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"size";"decay";"maxit";"key"
+1;"ts_norm_swminmax";"ts_aug_stretch";2;1;1000;405

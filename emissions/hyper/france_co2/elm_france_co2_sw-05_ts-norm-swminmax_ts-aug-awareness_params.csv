@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"nhid";"actfun";"key"
+1;"ts_norm_swminmax";"ts_aug_awareness";3;"relu";249

@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"epochs";"key"
+3;"ts_norm_ean";"ts_aug_shrink";1000;3
