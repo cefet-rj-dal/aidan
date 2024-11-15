@@ -3,6 +3,7 @@ if (!requireNamespace("progress", quietly = TRUE)) {
   install.packages("progress")
 }
 library(progress)
+source("experiment.R")
 
 # Define o diretório onde estão os arquivos .R
 dir <- "run"
