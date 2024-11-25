@@ -61,7 +61,7 @@ def create_file_content(
   model_ts: str,
   train_size: str):
     
-  wf_content = f"""source("experiment.R")
+  wf_content = f"""#source("experiment.R")
 
 dataset <- load("input/{df}.RData")
 dataset <- get("{df_name}")

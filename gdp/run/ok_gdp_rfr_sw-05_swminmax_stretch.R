@@ -1,4 +1,4 @@
-source("experiment.R")
+#source("experiment.R")
 
 dataset <- load("input/gdp.RData")
 dataset <- get("gdp")

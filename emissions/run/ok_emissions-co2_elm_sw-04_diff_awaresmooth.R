@@ -1,4 +1,4 @@
-source("experiment.R")
+#source("experiment.R")
 
 dataset <- load("input/emissions-co2.RData")
 dataset <- get("emissions")
