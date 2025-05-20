@@ -1,0 +1,2 @@
+"input_size";"preprocess";"augment";"nodesize";"ntree";"key"
+5;"ts_norm_gminmax";"ts_aug_jitter";7;20;35

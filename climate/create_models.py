@@ -11,6 +11,7 @@ def model_parameters(model:str):
     'conv1d': "epochs=1000",
     'elm':    "nhid=1:20, actfun=c('sig','radbas','tribas','relu','purelin')",
     'lstm':   "epochs=1000",
+    'knn':    "k=3:10",
     'mlp':    "size=1:10, decay=seq(0,1,0.1), maxit=1000",
     'rfr':    "nodesize=1:10, ntree=seq(20,100,20)",
     'svm':    "kernel=c('radial','sigmoid','linear'), epsilon=seq(0,1,0.2), cost=seq(20,100,20)"
@@ -20,6 +21,7 @@ def model_parameters(model:str):
 
 def df_params(df:str):
   df_name = {
+    'bioenergy':    "bioenergy",
     'climate':      "climate",
     'emissions':    "emissions",
     'emissions-co2':"emissions",
@@ -29,6 +31,7 @@ def df_params(df:str):
   }
   
   sw_size = {
+    'bioenergy':    [4, 5, 6],
     'climate':      [4, 5, 6],
     'emissions':    [4, 5, 6],
     'emissions-co2':[4, 5, 6],
@@ -38,6 +41,7 @@ def df_params(df:str):
   }
   
   train_size = {
+    'bioenergy':    25,
     'climate':      55,
     'emissions':    53,
     'emissions-co2':24,
@@ -85,10 +89,31 @@ for (j in (1:length(dataset))) {{
   return wf_content
 
 
+# Função para criar o conteúdo do arquivo
+def create_arima_content(
+  df: str, 
+  df_name: str,
+  train_size: str):
+    
+  wf_content = f"""#source("experiment.R")
+
+dataset <- load("input/{df}.RData")
+dataset <- get("{df_name}")
+
+for (j in (1:length(dataset))) {{
+  country <- names(dataset)[j]
+  create_directories(country)
+  filename <- sprintf("%s_%s", "arima", country)
+  run_ml(x=dataset[[j]], filename=filename, base_model=ts_arima(), train_size={train_size}, test_size=8)
+}}"""
+    
+  return wf_content
+
+
 # Configuração dos parâmetros
-list_data = ["climate"]
+list_data = ["clima"]
 folder = "run"
-list_model = ["conv1d", "elm", "lstm", "mlp", "rfr", "svm"]
+list_model = ["conv1d", "elm", "lstm", "knn", "mlp", "rfr", "svm"]
 list_preprocess = ["an", "ean", "gminmax", "swminmax", "diff"]
 list_augment = ["none", "awareness", "flip", "jitter", "shrink", "stretch"]
 
@@ -112,3 +137,13 @@ for df in list_data:
           
           with open(os.path.join(folder, file_name), "w") as f:
             f.write(file_content)
+
+'''
+# ARIMA
+for df in list_data:
+  df_name, sw_size, train_size = df_params(df)
+  file_name = f"{df}_arima.R"
+  file_content = create_arima_content(df, df_name, train_size)
+  with open(os.path.join(folder, file_name), "w") as f:
+    f.write(file_content)
+'''
